@@ -4,12 +4,12 @@ import { redirect } from 'next/navigation';
 import { db } from '@/db';
 
 export enum TasksType {
-  New = 'newTasks',
-  Deleted = 'deletedTasks',
-  Completed = 'completedTasks',
+  New = '',
+  Deleted = 'deleted',
+  Completed = 'completed',
 }
 
-export async function getTasks(tasksType: TasksType) {
+export async function getTasks(tasksType: string) {
   let tasks;
   switch (tasksType) {
     case TasksType.New:
@@ -39,7 +39,7 @@ export async function createNewTask(formData: FormData) {
   redirect('/');
 }
 
-export async function deleteTask(tasksType: TasksType, id: number) {
+export async function deleteTask(tasksType: string, id: number) {
   switch (tasksType) {
     case TasksType.New:
       await db.newTask.delete({ where: { id } });
